@@ -5,7 +5,7 @@ var App = () => (
       <VideoPlayer/>
     </div>
     <div className="col-md-5">
-      <VideoList props={exampleVideoData}/>
+      <VideoList videos={exampleVideoData}/>
     </div>
   </div>
 );
