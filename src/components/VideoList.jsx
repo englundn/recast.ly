@@ -1,3 +1,20 @@
+class VideoList extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div className="video-list media">
+      {this.props.props.map((prop, i) => 
+        <VideoListEntry key={i} video={prop} />
+      )}
+      </div>
+    );
+  }
+
+}
+/*
 var VideoList = () => (
   <div className="video-list media">
     <VideoListEntry />
@@ -11,6 +28,7 @@ var VideoList = () => (
     <VideoListEntry />
   </div>
 );
+*/
 
 // PropTypes tell other developers what `props` a component expects
 // Warnings will be shown in the console when the defined rules are violated
