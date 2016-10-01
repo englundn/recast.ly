@@ -3,6 +3,10 @@ var VideoDetails = (props) => (
     <span>{'View Count: ' + Number(props.props.viewCount).toLocaleString() + ' '}</span>
     <span>{'Likes: ' + Number(props.props.likeCount).toLocaleString() + ' '}</span>
     <span>{'Dislikes: ' + Number(props.props.dislikeCount).toLocaleString() + ' '}</span>
+    <span id="likeDislike" width="100px" height="20px">
+      <span id="likeBar" style={{'backgroundColor': 'green', 'display': 'inline-block', 'width': Number(props.props.likeCount) * 100 / (Number(props.props.likeCount) + Number(props.props.dislikeCount)) + '%', 'height': '20px'}}/>
+      <span id="dislikeBar"style={{'backgroundColor': 'red', 'display': 'inline-block', 'width': Number(props.props.dislikeCount) * 100 / (Number(props.props.likeCount) + Number(props.props.dislikeCount)) + '%', 'height': '20px'}} />
+    </span>
   </div>
 );
 
