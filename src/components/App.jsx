@@ -2,10 +2,19 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+    var context = this;
+
     this.state = {
       videoList: exampleVideoData,
       nowPlaying: exampleVideoData[0]
     };
+
+    searchYouTube({key: window.YOUTUBE_API_KEY, query: 'Hack Reactor'}, function(data) {
+      context.setState({
+        videoList: data,
+        nowPlaying: data[0]
+      });
+    });
 
     this.clickMethod = (event) => {
       var index = Number(event.dispatchMarker.split('.')[4].replace('$', ''));
