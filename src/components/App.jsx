@@ -8,10 +8,22 @@ class App extends React.Component {
     };
 
     this.clickMethod = (event) => {
-      var index = Number(event.dispatchMarker.split('$')[1].split('.')[0]);
+      var index = Number(event.dispatchMarker.split('.')[4].replace('$', ''));
       this.setState({
-        videoList: exampleVideoData,
-        nowPlaying: exampleVideoData[index]
+        videoList: this.state.videoList,
+        nowPlaying: this.state.videoList[index]
+      });
+    };
+
+    this.searchClick = (event) => {
+      // console.log('Clicked Search.');
+      var context = this;
+      var results = document.getElementsByClassName('form-control')[0].value;
+      searchYouTube({key: window.YOUTUBE_API_KEY, query: results}, function(data) {
+        context.setState({
+          videoList: data,
+          nowPlaying: context.state.nowPlaying
+        });
       });
     };
   }
@@ -19,7 +31,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Nav />
+        <Nav props={this.searchClick}/>
         <div className="col-md-7">
           <VideoPlayer video={this.state.nowPlaying}/>
         </div>

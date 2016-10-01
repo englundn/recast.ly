@@ -14,7 +14,6 @@ var searchYouTube = (options, callback) => {
     url: 'https://www.googleapis.com/youtube/v3/search',
     data: dataObj,
     success: function(data) {
-      console.log(data.items);
       callback(data.items);
     }, 
     error: function(data) {
