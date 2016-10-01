@@ -15,7 +15,7 @@ describe('VideoList', function() {
 
     var oneFakeVideo = window.fakeVideoData.slice(-1);
     shallowRenderer.render(
-      <VideoList videos={oneFakeVideo} />
+      <VideoList props={{videos: oneFakeVideo, clickHandler: undefined}} />
     );
 
     var videoList = shallowRenderer.getRenderOutput();
@@ -28,7 +28,7 @@ describe('VideoList', function() {
 
     var threeFakeVideos = window.fakeVideoData.slice(-3);
     shallowRenderer.render(
-      <VideoList videos={threeFakeVideos} />
+      <VideoList props={{videos: threeFakeVideos, clickHandler: undefined}} />
     );
     
     var videoList = shallowRenderer.getRenderOutput();
@@ -41,7 +41,7 @@ describe('VideoList', function() {
 
     var fiveFakeVideos = window.fakeVideoData.slice(-5);
     shallowRenderer.render(
-      <VideoList videos={fiveFakeVideos} />
+      <VideoList props={{videos: fiveFakeVideos, clickHandler: undefined}} />
     );
     
     var videoList = shallowRenderer.getRenderOutput();
