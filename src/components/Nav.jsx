@@ -1,6 +1,6 @@
 var Nav = (props) => (
   <nav className="navbar">
-    <div className="col-md-6 col-md-offset-3">
+    <div className="col-md-6 col-md-offset-3" width="100%">
       <Search props={props.props}/>
     </div>
   </nav>

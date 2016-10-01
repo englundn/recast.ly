@@ -7,7 +7,8 @@ class App extends React.Component {
       videoList: exampleVideoData,
       nowPlaying: exampleVideoData[0],
       lastTimeSearched: new Date().getTime(),
-      videoStats: {viewCount: 0}
+      videoStats: {viewCount: 0},
+      autoPlay: false
     };
 
 /*
@@ -60,6 +61,12 @@ class App extends React.Component {
       }
     };
 
+    this.autoPlayToggle = () => {
+      console.log('Toggling Autoplay');
+      this.setState({
+        autoPlay: !this.state.autoPlay
+      });
+    };
     // this.detailedSearch = (event) => {
 
       
@@ -76,9 +83,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Nav props={this.search}/>
+        <Nav props={{search: this.search, autoPlay: this.autoPlayToggle}}/>
         <div className="col-md-7">
-          <VideoPlayer video={{video: this.state.nowPlaying, stats: this.state.videoStats}}/>
+          <VideoPlayer video={{video: this.state.nowPlaying, stats: this.state.videoStats, autoPlay: this.state.autoPlay}}/>
         </div>
         <div className="col-md-5">
           <VideoList props={{videos: this.state.videoList, clickHandler: this.clickMethod}}/>

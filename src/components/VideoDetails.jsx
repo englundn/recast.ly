@@ -1,8 +1,8 @@
 var VideoDetails = (props) => (
   <div id="videoDetails">
-    <span>{'View Count: ' + props.props.viewCount + ' '}</span>
-    <span>{'Likes: ' + props.props.likeCount + ' '}</span>
-    <span>{'Dislikes: ' + props.props.dislikeCount + ' '}</span>
+    <span>{'View Count: ' + Number(props.props.viewCount).toLocaleString() + ' '}</span>
+    <span>{'Likes: ' + Number(props.props.likeCount).toLocaleString() + ' '}</span>
+    <span>{'Dislikes: ' + Number(props.props.dislikeCount).toLocaleString() + ' '}</span>
   </div>
 );
 
