@@ -36,11 +36,10 @@ class App extends React.Component {
 
     this.clickMethod = (event) => {
       var index = Number(event.dispatchMarker.split('.')[4].replace('$', ''));
-      this.setState({
-        nowPlaying: this.state.videoList[index],
-      });
-      youtubeDetails({key: window.YOUTUBE_API_KEY, videoId: this.state.nowPlaying.id.videoId}, function(data) {
+      var newVideo = context.state.videoList[index];
+      youtubeDetails({key: window.YOUTUBE_API_KEY, videoId: newVideo.id.videoId}, function(data) {
         context.setState({
+          nowPlaying: newVideo,
           videoStats: data.items[0].statistics
         });
       });  

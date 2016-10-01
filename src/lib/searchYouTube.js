@@ -13,7 +13,7 @@ var searchYouTube = (options, callback) => {
   $.ajax({
     url: 'https://www.googleapis.com/youtube/v3/search',
     data: dataObj,
-    //async: false,
+    ///async: false,
     success: function(data) {
       callback(data.items);
     }, 
