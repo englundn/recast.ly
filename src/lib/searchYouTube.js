@@ -13,6 +13,7 @@ var searchYouTube = (options, callback) => {
   $.ajax({
     url: 'https://www.googleapis.com/youtube/v3/search',
     data: dataObj,
+    //async: false,
     success: function(data) {
       callback(data.items);
     }, 
@@ -23,4 +24,26 @@ var searchYouTube = (options, callback) => {
   });
 };
 
+var youtubeDetails = (options, callback) => {
+  var dataObj = {
+    part: 'statistics',
+    id: options.videoId,
+    key: options.key
+  };
+
+  $.ajax({
+    url: 'https://www.googleapis.com/youtube/v3/videos',
+    data: dataObj,
+    //async: false,
+    success: function(data) {
+      callback(data);
+    }, 
+    error: function(data) {
+      console.log('Error');
+      console.log(data);
+    }
+  });
+};
+
 window.searchYouTube = searchYouTube;
+window.youtubeDetails = youtubeDetails;

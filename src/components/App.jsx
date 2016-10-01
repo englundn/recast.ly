@@ -1,48 +1,85 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
-
     var context = this;
 
     this.state = {
       videoList: exampleVideoData,
-      nowPlaying: exampleVideoData[0]
+      nowPlaying: exampleVideoData[0],
+      lastTimeSearched: new Date().getTime(),
+      videoStats: {viewCount: 0}
     };
+
+/*
+    this.state = {
+      videoList: undefined,
+      nowPlaying: undefined,
+      lastTimeSearched: undefined,
+      videoStats: undefined
+    };
+  */
 
     searchYouTube({key: window.YOUTUBE_API_KEY, query: 'Hack Reactor'}, function(data) {
       context.setState({
         videoList: data,
-        nowPlaying: data[0]
+        nowPlaying: data[0],
+        lastTimeSearched: new Date().getTime()
       });
     });
+
+    youtubeDetails({key: window.YOUTUBE_API_KEY, videoId: this.state.nowPlaying.id.videoId}, function(data) {
+      context.setState({
+        videoStats: data.items[0].statistics
+      });
+    });
+    
 
     this.clickMethod = (event) => {
       var index = Number(event.dispatchMarker.split('.')[4].replace('$', ''));
       this.setState({
-        videoList: this.state.videoList,
-        nowPlaying: this.state.videoList[index]
+        nowPlaying: this.state.videoList[index],
       });
+      youtubeDetails({key: window.YOUTUBE_API_KEY, videoId: this.state.nowPlaying.id.videoId}, function(data) {
+        context.setState({
+          videoStats: data.items[0].statistics
+        });
+      });  
     };
 
-    this.searchClick = (event) => {
-      // console.log('Clicked Search.');
-      var context = this;
-      var results = document.getElementsByClassName('form-control')[0].value;
-      searchYouTube({key: window.YOUTUBE_API_KEY, query: results}, function(data) {
-        context.setState({
-          videoList: data,
-          nowPlaying: context.state.nowPlaying
+    this.search = (event) => {
+      var currentTime = new Date().getTime();
+      if (currentTime - this.state.lastTimeSearched > 500) {
+        var context = this;
+        var results = document.getElementsByClassName('form-control')[0].value;
+        searchYouTube({key: window.YOUTUBE_API_KEY, query: results}, function(data) {
+          context.setState({
+            videoList: data,
+            nowPlaying: context.state.nowPlaying,
+            lastTimeSearched: currentTime
+          });
         });
-      });
+      }
     };
+
+    // this.detailedSearch = (event) => {
+
+      
+    // this.searchClick = (event) => {
+    //   this.search();
+    // }
+
+    // this.searchKeyUp = event => {
+    //   this.searchClick(event);
+    // };
+    
   }
 
   render() {
     return (
       <div>
-        <Nav props={this.searchClick}/>
+        <Nav props={this.search}/>
         <div className="col-md-7">
-          <VideoPlayer video={this.state.nowPlaying}/>
+          <VideoPlayer video={{video: this.state.nowPlaying, stats: this.state.videoStats}}/>
         </div>
         <div className="col-md-5">
           <VideoList props={{videos: this.state.videoList, clickHandler: this.clickMethod}}/>
